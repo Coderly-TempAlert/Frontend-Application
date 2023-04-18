@@ -1,4 +1,4 @@
-# TempAler Frontend Application
+# TempAlert Frontend Application
 | Integrante      | Github User |
 | :---------------: | :---------------: |
 | Franco Carrillo  | [FrancoCarrillo](https://github.com/FrancoCarrillo) |
