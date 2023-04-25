@@ -1,0 +1,47 @@
+<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<div class="body" [ngClass]="getBodyClass()">
+  <h1 class="text-xl text-gray-600">Tiendas</h1>
+  <div class="flex items-stretch gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar por</mat-label>
+      <mat-select [(ngModel)]="selectOptionVal">
+        <mat-option [value]="option.id" *ngFor="let option of tempOptions">{{
+          option.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="flex flex-1" appearance="fill">
+      <mat-label>Ingresa data a buscar</mat-label>
+      <input
+        title="Search"
+        matInput
+        [(ngModel)]="this.searchTerm"
+        #filterModal
+        [maxlength]="maxLengthSearch"
+        (keyup)="this.filterBy.next(searchTerm)"
+        (keydown.enter)="this.search.next()"
+      />
+      <mat-hint align="end"
+        >{{ filterModal.value.length }}/{{ maxLengthSearch }}</mat-hint
+      >
+    </mat-form-field>
+
+    <button
+      (click)="openAddEditEmpForm()"
+      class="bg-green-400 px-4 text-white font-bold rounded hover:bg-green-500  flex items-center gap-2"
+    >
+      CREAR TIENDA
+    </button>
+  </div>
+
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-4 py-4">
+    <card-component></card-component>
+    <card-component></card-component>
+    <card-component></card-component>
+
+  </div>
+
+
+</div>
+
