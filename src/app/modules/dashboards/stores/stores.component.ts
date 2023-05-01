@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit,
@@ -10,6 +11,7 @@ import { Subject } from 'rxjs';
 import { EmpAddEditComponent } from 'src/app/components/emp-add-edit/emp-add-edit.component';
 import { Store } from 'src/app/core/models/store.model';
 import { StoreService } from 'src/app/core/services/stores/store.service';
+import { __values } from 'tslib';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -42,7 +44,11 @@ export class StoresComponent implements OnInit {
     this.getAllStores();
   }
 
-  constructor(private _dialog: MatDialog, private storeService: StoreService) {}
+  constructor(
+    private _dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    private storeService: StoreService
+  ) {}
 
   onToggleSideNav(event: SideNavToggle): void {
     this.screenwidth = event.screenWidth;
@@ -79,15 +85,19 @@ export class StoresComponent implements OnInit {
 
   openAddEditEmpForm() {
     const dialogRef = this._dialog.open(EmpAddEditComponent, {
-      data: null
+      data: null,
     });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          console.log(val);
           this.stores.push(val);
+          this.cdRef.detectChanges();
         }
       },
     });
+  }
+
+  deleteStore(store: Store) {
+    this.stores = this.stores.filter((s) => s.id !== store.id);
   }
 }

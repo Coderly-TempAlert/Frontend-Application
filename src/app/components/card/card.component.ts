@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from 'src/app/core/models/store.model';
@@ -11,6 +11,7 @@ import { StoreService } from 'src/app/core/services/stores/store.service';
 })
 export class CardComponent implements OnInit {
   @Input() store!: Store;
+  @Output() deletedStore = new EventEmitter();
 
   constructor(private _dialog: MatDialog, private storeService: StoreService) {}
   ngOnInit(): void {
@@ -35,6 +36,7 @@ export class CardComponent implements OnInit {
     let _confirm = confirm('Estas seguro de eliminar esta tienda?');
     if (_confirm) {
       this.storeService.delete(this.store.id).subscribe({});
+      this.deletedStore.emit();
     }
   }
 }
