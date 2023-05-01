@@ -21,4 +21,8 @@ export class StoreService {
   update(id: string, store: any) {
     return this.http.put<Store>(`${environment.url_api}/Store/${id}`, store);
   }
+
+  delete(id: string) {
+    return this.http.delete<any>(`${environment.url_api}/Store/${id}`);
+  }
 }

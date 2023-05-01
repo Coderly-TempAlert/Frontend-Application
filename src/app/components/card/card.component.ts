@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from 'src/app/core/models/store.model';
+import { StoreService } from 'src/app/core/services/stores/store.service';
 
 @Component({
   selector: 'card-component',
@@ -11,7 +12,7 @@ import { Store } from 'src/app/core/models/store.model';
 export class CardComponent implements OnInit {
   @Input() store!: Store;
 
-  constructor(private _dialog: MatDialog) {}
+  constructor(private _dialog: MatDialog, private storeService: StoreService) {}
   ngOnInit(): void {
     console.log(this.store);
   }
@@ -28,5 +29,12 @@ export class CardComponent implements OnInit {
         }
       },
     });
+  }
+
+  deleteStore() {
+    let _confirm = confirm('Estas seguro de eliminar esta tienda?');
+    if (_confirm) {
+      this.storeService.delete(this.store.id).subscribe({});
+    }
   }
 }
