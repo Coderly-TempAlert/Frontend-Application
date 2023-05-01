@@ -10,7 +10,11 @@ import { StorePagination } from '../../models/store-pagination.model';
 export class StoreService {
   constructor(private http: HttpClient) {}
 
-  getAllStores() {
+  getAll() {
     return this.http.get<StorePagination>(`${environment.url_api}/Store`);
+  }
+
+  create(store: any) {
+    return this.http.post<Store>(`${environment.url_api}/Store`, store);
   }
 }

@@ -29,27 +29,28 @@ interface FilteredOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StoresComponent implements OnInit {
+  @Input() collapsed = false;
+
   title = 'planning';
 
   isSideNavCollapsed = false;
   screenwidth = 0;
-  stores: Store[] = [];
+  stores: Array<Store> = [];
 
-  constructor(private _dialog: MatDialog, private storeService: StoreService) {}
-
+  //! Get all stores a veces tiene problemas para la carga y no se muestra la lista de tiendas
   ngOnInit(): void {
     this.getAllStores();
   }
+
+  constructor(private _dialog: MatDialog, private storeService: StoreService) {}
 
   onToggleSideNav(event: SideNavToggle): void {
     this.screenwidth = event.screenWidth;
     this.isSideNavCollapsed = event.collapsed;
   }
 
-  @Input() collapsed = false;
-
   getAllStores() {
-    this.storeService.getAllStores().subscribe((response) => {
+    this.storeService.getAll().subscribe((response) => {
       this.stores = response.registers;
     });
   }
@@ -82,6 +83,7 @@ export class StoresComponent implements OnInit {
       next: (val) => {
         if (val) {
           console.log(val);
+          this.stores.push(val);
         }
       },
     });
