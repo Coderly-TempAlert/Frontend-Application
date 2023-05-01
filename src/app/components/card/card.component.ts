@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from 'src/app/core/models/store.model';
@@ -13,7 +20,11 @@ export class CardComponent implements OnInit {
   @Input() store!: Store;
   @Output() deletedStore = new EventEmitter();
 
-  constructor(private _dialog: MatDialog, private storeService: StoreService) {}
+  constructor(
+    private _dialog: MatDialog,
+    private storeService: StoreService,
+    private cdRef: ChangeDetectorRef
+  ) {}
   ngOnInit(): void {
     console.log(this.store);
   }
@@ -26,7 +37,8 @@ export class CardComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          console.log(val);
+          this.store = val;
+          this.cdRef.detectChanges();
         }
       },
     });
