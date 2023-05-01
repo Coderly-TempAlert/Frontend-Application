@@ -32,10 +32,13 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
 
 
+
 import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { StockEmpAddEditComponent } from './components/stock-emp-add-edit/stock-emp-add-edit.component';
+import { StockCardComponent } from './components/stock-card/stock-card.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +50,8 @@ import { MatSortModule } from '@angular/material/sort';
     DashboardsComponent,
     CardComponent,
     EmpAddEditComponent,
+    StockEmpAddEditComponent,
+    StockCardComponent,
   ],
   imports: [
     BrowserModule,

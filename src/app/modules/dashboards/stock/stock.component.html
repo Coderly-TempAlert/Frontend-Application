@@ -1,1 +1,47 @@
-<p>stock works!</p>
+<app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<div class="body" [ngClass]="getBodyClass()">
+  <h1 class="text-xl text-gray-600">Inventario</h1>
+  <div class="grid grid-cols-1 justify-stretch sm:grid-cols-5 gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar por</mat-label>
+      <mat-select [(ngModel)]="selectOptionVal">
+        <mat-option [value]="option.id" *ngFor="let option of tempOptions">{{
+          option.name
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="flex flex-1 col-span-3" appearance="fill">
+      <mat-label>Ingresa data a buscar</mat-label>
+      <input
+        title="Search"
+        matInput
+        [(ngModel)]="this.searchTerm"
+        #filterModal
+        [maxlength]="maxLengthSearch"
+        (keyup)="this.filterBy.next(searchTerm)"
+        (keydown.enter)="this.search.next()"
+      />
+      <mat-hint align="end"
+        >{{ filterModal.value.length }}/{{ maxLengthSearch }}</mat-hint
+      >
+    </mat-form-field>
+
+    <button
+      (click)="openAddEditEmpForm()"
+      class="bg-green-400 justify-center text-white font-bold rounded hover:bg-green-500  flex items-center gap-2 py-4 px-4"
+    >
+      CREAR PRODUCTO
+    </button>
+  </div>
+
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-0 py-4">
+    <stock-card-component></stock-card-component>
+    <stock-card-component></stock-card-component>
+    <stock-card-component></stock-card-component>
+
+  </div>
+
+
+</div>
+
