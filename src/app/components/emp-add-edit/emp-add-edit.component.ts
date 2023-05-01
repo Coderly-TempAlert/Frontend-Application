@@ -33,20 +33,26 @@ export class EmpAddEditComponent implements OnInit {
     private storeService: StoreService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    this.newStore = data != null ? data.store : [];
+
     this.empForm = new FormGroup({
-      id: new FormControl<string | null>({ value: null, disabled: true }, [
-        Validators.pattern('[0-9]*'),
-      ]),
-      name: new FormControl<string | null>({ value: null, disabled: false }, [
-        Validators.required,
-        Validators.maxLength(50),
-      ]),
+      id: new FormControl<string | null>(
+        { value: data != null ? this.newStore.id : null, disabled: true },
+        [Validators.pattern('[0-9]*')]
+      ),
+      name: new FormControl<string | null>(
+        { value: data != null ? this.newStore.name : null, disabled: false },
+        [Validators.required, Validators.maxLength(50)]
+      ),
       address: new FormControl<string | null>(
-        { value: null, disabled: false },
+        { value: data != null ? this.newStore.address : null, disabled: false },
         [Validators.required, Validators.maxLength(100)]
       ),
       description: new FormControl<string | null>(
-        { value: null, disabled: false },
+        {
+          value: data != null ? this.newStore.description : null,
+          disabled: false,
+        },
         [Validators.required]
       ),
     });
@@ -58,9 +64,21 @@ export class EmpAddEditComponent implements OnInit {
 
   onFormSubmit() {
     if (this.empForm.valid) {
+      if (this.data == null) {
         this.storeService.create(this.empForm.value).subscribe((response) => {
           this._dialogRef.close(response);
         });
+      } else {
+        this.storeService
+          .update(this.newStore.id, {
+            name: this.empForm.value.name,
+            description: this.empForm.value.description,
+            address: this.empForm.value.address,
+          })
+          .subscribe((response) => {
+            this._dialogRef.close(response);
+          });
+      }
     }
   }
 

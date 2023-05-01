@@ -17,4 +17,8 @@ export class StoreService {
   create(store: any) {
     return this.http.post<Store>(`${environment.url_api}/Store`, store);
   }
+
+  update(id: string, store: any) {
+    return this.http.put<Store>(`${environment.url_api}/Store/${id}`, store);
+  }
 }

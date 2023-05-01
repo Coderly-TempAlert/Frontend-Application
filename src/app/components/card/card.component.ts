@@ -16,9 +16,9 @@ export class CardComponent implements OnInit {
     console.log(this.store);
   }
 
-  openEditForm(data = null) {
+  openEditForm() {
     const dialogRef = this._dialog.open(EmpAddEditComponent, {
-      data,
+      data: { store: this.store },
     });
 
     dialogRef.afterClosed().subscribe({

@@ -78,7 +78,9 @@ export class StoresComponent implements OnInit {
   filterBy: Subject<string> = new Subject<string>();
 
   openAddEditEmpForm() {
-    const dialogRef = this._dialog.open(EmpAddEditComponent);
+    const dialogRef = this._dialog.open(EmpAddEditComponent, {
+      data: null
+    });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
