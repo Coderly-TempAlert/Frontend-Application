@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Store } from 'src/app/core/models/store.model';
 
 @Component({
   selector: 'card-component',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
 })
-export class CardComponent {
+export class CardComponent implements OnInit {
+  @Input() store!: Store;
 
-  constructor(private _dialog: MatDialog){}
+  constructor(private _dialog: MatDialog) {}
+  ngOnInit(): void {
+    console.log(this.store);
+  }
 
   openEditForm(data = null) {
     const dialogRef = this._dialog.open(EmpAddEditComponent, {

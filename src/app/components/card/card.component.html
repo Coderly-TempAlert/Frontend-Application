@@ -1,5 +1,5 @@
 <mat-card class="rounded-lg overflow-hidden mx-auto py-4">
-  <div class="w-20 h-20 mx-auto overflow-hidden rounded-full">
+  <div class="w-32 h-32 mx-auto overflow-hidden rounded-full">
     <img
       mat-card-image
       src="../../../assets/store.jpeg"
@@ -7,16 +7,27 @@
       class="object-cover w-full h-full"
     />
   </div>
-  <mat-card-title class="text-center text-xl py-2">Tienda</mat-card-title>
-  <mat-card-content class="text-center text-gray-600 break-words">
-    Contenido Texto
+  <mat-card-title class="text-center text-xl py-2">{{
+    store.name
+  }}</mat-card-title>
+  <mat-card-content class="text-left text-gray-600 break-words">
+    <div>
+      <h3><b>Descripcion:</b></h3>
+      <p>{{ store.description }}</p>
+    </div>
+    <div>
+      <h3><b>Direccion:</b></h3>
+      <p>{{ store.address }}</p>
+    </div>
+    <div>
+      <h3><b>Dia de creacion:</b></h3>
+      <p>{{ store.createdDate | date:'dd/MM/yyyy' }}</p>
+    </div>
   </mat-card-content>
   <mat-card-actions class="justify-center mt-4">
     <div class="flex flex-col items-center gap-2 py-2">
       <ng-container>
-        <button
-          class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full mb-2"
-        >
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full mb-2">
           INVENTARIO
         </button>
       </ng-container>
@@ -29,9 +40,7 @@
         </button>
       </ng-container>
       <ng-container>
-        <button
-          class="bg-red-500 text-white px-4 py-2 rounded-lg w-full"
-        >
+        <button class="bg-red-500 text-white px-4 py-2 rounded-lg w-full">
           ELIMINAR
         </button>
       </ng-container>
