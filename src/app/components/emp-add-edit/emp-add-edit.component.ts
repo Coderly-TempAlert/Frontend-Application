@@ -1,6 +1,19 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  OnInit,
+  ViewEncapsulation,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Store } from 'src/app/core/models/store.model';
+import { StoreService } from 'src/app/core/services/stores/store.service';
 
 @Component({
   selector: 'app-emp-add-edit',
@@ -12,33 +25,36 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class EmpAddEditComponent implements OnInit {
   empForm: FormGroup;
 
-
+  newStore: Store = {} as Store;
 
   constructor(
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<EmpAddEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-
+    private storeService: StoreService,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-
+    this.newStore = data != null ? data.store : [];
 
     this.empForm = new FormGroup({
       id: new FormControl<string | null>(
-        {value: null, disabled: true},
+        { value: data != null ? this.newStore.id : null, disabled: true },
         [Validators.pattern('[0-9]*')]
-        ),
+      ),
       name: new FormControl<string | null>(
-        {value: null, disabled: false},
+        { value: data != null ? this.newStore.name : null, disabled: false },
         [Validators.required, Validators.maxLength(50)]
-        ),
-      address : new FormControl<string | null>(
-        {value: null, disabled: false},
+      ),
+      address: new FormControl<string | null>(
+        { value: data != null ? this.newStore.address : null, disabled: false },
         [Validators.required, Validators.maxLength(100)]
-        ),
-      phone: new FormControl<string | null>(
-        {value: null, disabled: false},
-        [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]
-        ),
+      ),
+      description: new FormControl<string | null>(
+        {
+          value: data != null ? this.newStore.description : null,
+          disabled: false,
+        },
+        [Validators.required]
+      ),
     });
   }
 
@@ -48,10 +64,24 @@ export class EmpAddEditComponent implements OnInit {
 
   onFormSubmit() {
     if (this.empForm.valid) {
-      if (this.data) {
-        console.log(this.empForm.value);
+      if (this.data == null) {
+        this.storeService.create(this.empForm.value).subscribe((response) => {
+          this._dialogRef.close(response);
+        });
       } else {
-        this._dialogRef.close(this.empForm.value);
+
+        console.log(this.data.store.createdDate);
+
+        this.storeService
+          .update(this.newStore.id, {
+            name: this.empForm.value.name,
+            description: this.empForm.value.description,
+            address: this.empForm.value.address,
+            createdDate: this.data.store.createdDate,
+          })
+          .subscribe((response) => {
+            this._dialogRef.close(response);
+          });
       }
     }
   }
@@ -65,5 +95,5 @@ export class EmpAddEditComponent implements OnInit {
       return false;
     }
     return d < today;
-  }
+  };
 }
