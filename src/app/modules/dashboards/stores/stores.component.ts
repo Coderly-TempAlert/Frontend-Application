@@ -1,3 +1,4 @@
+import { HttpParams } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -75,13 +76,15 @@ export class StoresComponent implements OnInit {
     return styleClass;
   }
 
-  selectOptionVal: number = 0;
-  selectTypeDocVal: number = 0;
-  tempOptions: Array<FilteredOptions> = [];
   searchTerm: string = '';
-  search: Subject<void> = new Subject<void>();
   maxLengthSearch: number = 15;
-  filterBy: Subject<string> = new Subject<string>();
+
+  searchStores(){
+    this.storeService.getAll(this.searchTerm).subscribe((response) => {
+      this.stores = response.registers;
+      this.cdRef.detectChanges();
+    });
+  }
 
   openAddEditEmpForm() {
     const dialogRef = this._dialog.open(EmpAddEditComponent, {

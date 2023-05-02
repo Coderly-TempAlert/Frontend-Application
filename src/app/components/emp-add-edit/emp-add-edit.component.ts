@@ -69,11 +69,15 @@ export class EmpAddEditComponent implements OnInit {
           this._dialogRef.close(response);
         });
       } else {
+
+        console.log(this.data.store.createdDate);
+
         this.storeService
           .update(this.newStore.id, {
             name: this.empForm.value.name,
             description: this.empForm.value.description,
             address: this.empForm.value.address,
+            createdDate: this.data.store.createdDate,
           })
           .subscribe((response) => {
             this._dialogRef.close(response);
