@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  url_api: 'https://localhost:5001/api',
+  url_api: 'https://tempalert-business.herokuapp.com/api',
 };
