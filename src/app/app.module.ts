@@ -5,10 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { StoresComponent } from './modules/dashboards/stores/stores.component';
-import { StockComponent } from './modules/dashboards/stock/stock.component';
-import { SidenavComponent } from './modules/dashboards/sidenav/sidenav.component';
-import { DashboardsComponent } from './modules/dashboards/dashboards.component';
+
+import { SidenavComponent } from './modules/main/sidenav/sidenav.component';
+import { DashboardsComponent } from './modules/main/dashboards/dashboards.component';
 
 
 // ANGULAR MATERIAL
@@ -30,7 +29,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import {MatDividerModule } from '@angular/material/divider';
 
 
 import { HttpClientModule } from '@angular/common/http';
@@ -39,19 +38,32 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { StockEmpAddEditComponent } from './components/stock-emp-add-edit/stock-emp-add-edit.component';
 import { StockCardComponent } from './components/stock-card/stock-card.component';
+import { MainComponent } from './modules/main/main.component';
+import { StockComponent } from './modules/main/stock/stock.component';
+import { StoresComponent } from './modules/main/stores/stores.component';
+import { AlertComponent } from './components/alert/alert.component';
+import { ConfirmDialogComponent } from './components/confirmDialog/confirm-dialog.component';
+import { DatePipe } from '@angular/common';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    StoresComponent,
-    StockComponent,
+
     SidenavComponent,
-    DashboardsComponent,
+
     CardComponent,
     EmpAddEditComponent,
+    DashboardsComponent,
+    LoginComponent,
+    AlertComponent,
+    ConfirmDialogComponent,
+
+    StoresComponent,
+    StockComponent,
     StockEmpAddEditComponent,
     StockCardComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,9 +88,11 @@ import { StockCardComponent } from './components/stock-card/stock-card.component
     MatSortModule,
     MatPaginatorModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDividerModule,
+    MatProgressBarModule
   ],
-  providers: [],
+  providers: [ DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

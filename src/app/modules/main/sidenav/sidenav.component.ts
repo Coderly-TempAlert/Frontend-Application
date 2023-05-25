@@ -60,6 +60,16 @@ export class SidenavComponent implements OnInit {
       label: 'Profile',
     },
     {
+      routeLink: '/main/stores',
+      icon: 'fal fa-store',
+      label: 'Stores',
+    },
+    {
+      routeLink: '/main/dashboards',
+      icon: 'fal fa-tachometer-alt',
+      label: 'Dashboard',
+    },
+    {
       routeLink: '',
       icon: 'fa-sign-out fal',
       label: 'Log Out',

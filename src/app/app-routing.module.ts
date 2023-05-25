@@ -1,32 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './modules/login/login.component';
-import { DashboardsComponent } from './modules/dashboards/dashboards.component';
-import { StoresComponent } from './modules/dashboards/stores/stores.component';
-import { StockComponent } from './modules/dashboards/stock/stock.component';
+import { DashboardsComponent } from './modules/main/dashboards/dashboards.component';
+
+import { MainComponent } from './modules/main/main.component';
+import { StoresComponent } from './modules/main/stores/stores.component';
+import { StockComponent } from './modules/main/stock/stock.component';
+
 
 const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: '/main/dashboards', pathMatch: 'full' },
   {
-    path: '',
-    component: LoginComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'dashboards',
-    component: DashboardsComponent
-  },
-  {
-    path: 'stores',
-    component: StoresComponent
-  },
-  {
-    path: 'stocks',
-    component: StockComponent
+    path: 'main',
+    // canActivate: [AuthGuard],
+    component: MainComponent,
+    children: [
+      { path: 'dashboards', component: DashboardsComponent },
+      { path: 'stores', component: StoresComponent },
+      { path: 'stores/:id/stocks', component: StockComponent },
+    ]
   },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

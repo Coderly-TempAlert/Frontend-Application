@@ -10,6 +10,7 @@ import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from 'src/app/core/models/store.model';
 import { StoreService } from 'src/app/core/services/stores/store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'card-component',
@@ -23,7 +24,8 @@ export class CardComponent implements OnInit {
   constructor(
     private _dialog: MatDialog,
     private storeService: StoreService,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    private router: Router
   ) {}
   ngOnInit(): void {
     console.log(this.store);
@@ -51,4 +53,9 @@ export class CardComponent implements OnInit {
       this.deletedStore.emit();
     }
   }
+
+  goToStock(storeId: string): void {
+    this.router.navigate(['/main/stores', storeId, 'stocks']);
+  }
+
 }

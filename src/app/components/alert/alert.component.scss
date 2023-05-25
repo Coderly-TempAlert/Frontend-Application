@@ -1,0 +1,42 @@
+.alert-card {
+  width: 400px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 10px #ccc;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 0 10px #aaa;
+  }
+}
+
+.icon-box {
+  font-size: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin-bottom: 0;
+}
+
+.icon-box-p {
+  @extend .icon-box;
+  background-color: #a5cbda;
+  margin-left: 10px;
+}
+
+.icon-box-t {
+  @extend .icon-box;
+  background-color: #a9dbc8;
+  margin-left: 10px;
+}
+
+.content-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
