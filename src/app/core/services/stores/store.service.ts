@@ -10,8 +10,10 @@ import { StorePagination } from '../../models/store-pagination.model';
 export class StoreService {
   constructor(private http: HttpClient) {}
 
-  getAll(search?: string) {
-    let params = new HttpParams();
+  getAll(page: number = 0, search?: string) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', '20');
 
     if (search) params = params.set('Search', search);
 

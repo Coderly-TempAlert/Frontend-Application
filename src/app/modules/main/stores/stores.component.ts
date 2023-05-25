@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subject } from 'rxjs';
+import { Subject, catchError, throwError } from 'rxjs';
 import { EmpAddEditComponent } from 'src/app/components/emp-add-edit/emp-add-edit.component';
 import { Store } from 'src/app/core/models/store.model';
 import { StoreService } from 'src/app/core/services/stores/store.service';
@@ -33,11 +33,11 @@ interface FilteredOptions {
 })
 export class StoresComponent implements OnInit {
   @Input() collapsed = false;
-
-  title = 'planning';
-
   isSideNavCollapsed = false;
   screenwidth = 0;
+  title = 'planning';
+  page = 0;
+
   stores: Array<Store> = [];
 
   //! Get all stores a veces tiene problemas para la carga y no se muestra la lista de tiendas
@@ -57,8 +57,14 @@ export class StoresComponent implements OnInit {
   }
 
   getAllStores() {
-    this.storeService.getAll().subscribe((response) => {
-      this.stores = response.registers;
+    this.storeService.getAll(this.page).pipe(
+      catchError(err => {
+        console.error('gaa', err);
+        return throwError(err);
+      })
+    ).subscribe((response) => {
+      this.stores = [...this.stores, ...response.registers];
+      this.cdRef.detectChanges();
     });
   }
 
@@ -80,7 +86,9 @@ export class StoresComponent implements OnInit {
   maxLengthSearch: number = 15;
 
   searchStores(){
-    this.storeService.getAll(this.searchTerm).subscribe((response) => {
+    this.page = 0;
+    this.stores = [];
+    this.storeService.getAll(this.page, this.searchTerm).subscribe((response) => {
       this.stores = response.registers;
       this.cdRef.detectChanges();
     });
