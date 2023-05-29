@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { StockEmpAddEditComponent } from 'src/app/components/stock-emp-add-edit/stock-emp-add-edit.component';
 interface SideNavToggle {
@@ -25,7 +26,7 @@ export class StockComponent {
   isSideNavCollapsed = false;
   screenwidth = 0;
 
-  constructor(private _dialog: MatDialog,){}
+  constructor(private _dialog: MatDialog){}
 
   onToggleSideNav(event: SideNavToggle): void{
     this.screenwidth = event.screenWidth;

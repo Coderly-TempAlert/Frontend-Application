@@ -24,6 +24,6 @@ export class LoginComponent implements OnInit {
       return;
     }
     this.logInForm.disable();
-    this._router.navigate(['/stores']);
+    this._router.navigate(['/main/stores']);
   }
 }

@@ -1,0 +1,22 @@
+<mat-card class="alert-card">
+  <mat-card-header>
+    <mat-card-title>{{formatDate(alert!.createdDate)}}</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="content-row">
+      <h3>Nombre de Producto: <b>{{alert?.product?.name}}</b></h3>
+      <p class="icon-box-p">Id Producto: {{alert?.product?.id}}</p>
+    </div>
+    <div class="content-row">
+      <h3>Nombre de Tienda: <b>{{alert?.store?.name}}</b></h3>
+      <p class="icon-box-t">Id Tienda: {{alert?.store?.id}}</p>
+    </div>
+    <h3>Dirección de tienda: <b>{{alert?.store?.address}}</b></h3>
+  </mat-card-content>
+  <mat-divider></mat-divider>
+  <mat-card-actions align="end">
+    <button mat-button (click)="openDialog()">
+      RESUELTO
+    </button>
+  </mat-card-actions>
+</mat-card>
