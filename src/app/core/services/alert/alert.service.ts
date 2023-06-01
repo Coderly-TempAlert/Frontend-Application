@@ -15,7 +15,7 @@ export class AlertService {
       .set('size', '10');
 
     if (search) params = params.set('Search', search);
-    return this.http.get<AlertPagination>(`${environment.url_api}/Alert`, {
+    return this.http.get<AlertPagination>(`${environment.business_url_api}/Alert`, {
       params,
     });
 
@@ -23,12 +23,12 @@ export class AlertService {
 
 
   createAlert(product: any) {
-    return this.http.post(`${environment.url_api}/Alert`, product);
+    return this.http.post(`${environment.business_url_api}/Alert`, product);
   }
 
 
   deleteAlert(id: string) {
-    return this.http.delete<any>(`${environment.url_api}/Alert/${id}`);
+    return this.http.delete<any>(`${environment.business_url_api}/Alert/${id}`);
   }
 
 

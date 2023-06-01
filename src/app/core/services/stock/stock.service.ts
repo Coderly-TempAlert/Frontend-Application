@@ -17,7 +17,7 @@ export class StockService {
 
     if (search) params = params.set('Search', search);
 
-    return this.http.get<StockPagination>(`${environment.url_api}/api/Product`, {
+    return this.http.get<StockPagination>(`${environment.business_url_api}/api/Product`, {
       params,
     });
   }
@@ -29,26 +29,26 @@ export class StockService {
 
     if (search) params = params.set('Search', search);
 
-    return this.http.get<StockPagination>(`${environment.url_api}/api/Product/Store/${id}`, {
+    return this.http.get<StockPagination>(`${environment.business_url_api}/api/Product/Store/${id}`, {
       params,
     });
   }
 
 
   createProduct(product: any) {
-    return this.http.post(`${environment.url_api}/api/Product`, product);
+    return this.http.post(`${environment.business_url_api}/api/Product`, product);
   }
 
   getProduct(id: string) {
-    return this.http.get(`${environment.url_api}/api/Product/${id}`);
+    return this.http.get(`${environment.business_url_api}/api/Product/${id}`);
   }
 
   updateProduct(id: string, product: any) {
-    return this.http.put(`${environment.url_api}/api/Product/${id}`, product);
+    return this.http.put(`${environment.business_url_api}/api/Product/${id}`, product);
   }
 
   deleteProduct(id: string) {
-    return this.http.delete<any>(`${environment.url_api}/api/Product/${id}`);
+    return this.http.delete<any>(`${environment.business_url_api}/api/Product/${id}`);
   }
 
 
