@@ -17,20 +17,20 @@ export class StoreService {
 
     if (search) params = params.set('Search', search);
 
-    return this.http.get<StorePagination>(`${environment.url_api}/Store`, {
+    return this.http.get<StorePagination>(`${environment.business_url_api}/Store`, {
       params,
     });
   }
 
   create(store: any) {
-    return this.http.post<Store>(`${environment.url_api}/Store`, store);
+    return this.http.post<Store>(`${environment.business_url_api}/Store`, store);
   }
 
   update(id: string, store: any) {
-    return this.http.put<Store>(`${environment.url_api}/Store/${id}`, store);
+    return this.http.put<Store>(`${environment.business_url_api}/Store/${id}`, store);
   }
 
   delete(id: string) {
-    return this.http.delete<any>(`${environment.url_api}/Store/${id}`);
+    return this.http.delete<any>(`${environment.business_url_api}/Store/${id}`);
   }
 }
