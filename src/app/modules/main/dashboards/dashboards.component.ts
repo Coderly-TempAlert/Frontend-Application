@@ -22,7 +22,11 @@ export class DashboardsComponent implements OnInit , OnDestroy{
   constructor(
     private alertService: AlertService,
     private cdRef: ChangeDetectorRef,
-  ){}
+  ){
+    this.alertService.alertDeleted.subscribe(() => {
+      this.getAllAlerts();
+    });
+  }
 
   ngOnInit(): void {
     this.getAllAlerts();
