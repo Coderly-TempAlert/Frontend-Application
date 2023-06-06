@@ -32,7 +32,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatDividerModule } from '@angular/material/divider';
 
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
