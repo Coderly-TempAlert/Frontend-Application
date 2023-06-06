@@ -45,6 +45,7 @@ import { AlertComponent } from './components/alert/alert.component';
 import { ConfirmDialogComponent } from './components/confirmDialog/confirm-dialog.component';
 import { DatePipe } from '@angular/common';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { RegisterComponent } from './modules/register/register.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     StockEmpAddEditComponent,
     StockCardComponent,
     MainComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

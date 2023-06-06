@@ -6,10 +6,12 @@ import { DashboardsComponent } from './modules/main/dashboards/dashboards.compon
 import { MainComponent } from './modules/main/main.component';
 import { StoresComponent } from './modules/main/stores/stores.component';
 import { StockComponent } from './modules/main/stock/stock.component';
+import { RegisterComponent } from './modules/register/register.component';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: '/main/dashboards', pathMatch: 'full' },
   {
     path: 'main',
