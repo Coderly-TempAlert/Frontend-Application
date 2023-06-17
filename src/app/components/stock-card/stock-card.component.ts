@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { EmpAddEditComponent } from '../emp-add-edit/emp-add-edit.component';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Product } from 'src/app/core/models/stock.model';
 
 @Component({
   selector: 'stock-card-component',
@@ -9,10 +9,11 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class StockCardComponent {
 
+  @Input() producto!:Product;
   constructor(private _dialog: MatDialog){}
 
-  openEditForm(data = null) {
-    const dialogRef = this._dialog.open(EmpAddEditComponent, {
+/*  openEditForm(data = null) {
+    const dialogRef = this._dialog.open(StockEditComponent, {
       data,
     });
 
@@ -23,5 +24,5 @@ export class StockCardComponent {
         }
       },
     });
-  }
+  }*/
 }

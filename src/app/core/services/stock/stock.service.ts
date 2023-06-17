@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '../../models/store.model';
 import { environment } from 'src/environments/environment';
 import { StockPagination } from '../../models/stock-pagination.model';
+import { Product } from '../../models/stock.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,38 +18,38 @@ export class StockService {
 
     if (search) params = params.set('Search', search);
 
-    return this.http.get<StockPagination>(`${environment.business_url_api}/api/Product`, {
+    return this.http.get<StockPagination>(`${environment.business_url_api}/Product`, {
       params,
     });
   }
 
-  getStoreProducts(id: string, page: number = 0, search?: string) {
+  getStoreProducts(idStore: string, page: number = 0, search?: string) {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('size', '20');
 
     if (search) params = params.set('Search', search);
 
-    return this.http.get<StockPagination>(`${environment.business_url_api}/api/Product/Store/${id}`, {
+    return this.http.get<StockPagination>(`${environment.business_url_api}/Product/Store/${idStore}`, {
       params,
     });
   }
 
 
   createProduct(product: any) {
-    return this.http.post(`${environment.business_url_api}/api/Product`, product);
+    return this.http.post(`${environment.business_url_api}/Product`, product);
   }
 
   getProduct(id: string) {
-    return this.http.get(`${environment.business_url_api}/api/Product/${id}`);
+    return this.http.get<Product>(`${environment.business_url_api}/Product/${id}`);
   }
 
   updateProduct(id: string, product: any) {
-    return this.http.put(`${environment.business_url_api}/api/Product/${id}`, product);
+    return this.http.put(`${environment.business_url_api}/Product/${id}`, product);
   }
 
   deleteProduct(id: string) {
-    return this.http.delete<any>(`${environment.business_url_api}/api/Product/${id}`);
+    return this.http.delete<any>(`${environment.business_url_api}/Product/${id}`);
   }
 
 

@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute, Params } from '@angular/router';
+import { StockService } from 'src/app/core/services/stock/stock.service';
 
 @Component({
   selector: 'app-stock-emp-add-edit',
@@ -11,31 +13,30 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class StockEmpAddEditComponent implements OnInit {
   empForm: FormGroup;
-
-
-
+  id!: string;
   constructor(
     private _fb: FormBuilder,
     private _dialogRef: MatDialogRef<StockEmpAddEditComponent>,
+    private rutaActiva:ActivatedRoute,
+    private stockService: StockService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) {
-
-
+    this.id = data != null ? data.id : '';
     this.empForm = new FormGroup({
-      id: new FormControl<string | null>(
-        {value: null, disabled: true},
-        [Validators.pattern('[0-9]*')]
+      storeId: new FormControl<string | null>(
+        {value: data != null ? this.id : '', disabled: true},
+        [Validators.required, Validators.maxLength(50)]
         ),
       name: new FormControl<string | null>(
         {value: null, disabled: false},
         [Validators.required, Validators.maxLength(50)]
         ),
-      address : new FormControl<string | null>(
+      description : new FormControl<string | null>(
         {value: null, disabled: false},
         [Validators.required, Validators.maxLength(100)]
         ),
-      phone: new FormControl<string | null>(
+      amount: new FormControl<string | null>(
         {value: null, disabled: false},
         [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(10)]
         ),
@@ -47,18 +48,25 @@ export class StockEmpAddEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.empForm.patchValue(this.data);
   }
 
   onFormSubmit() {
     if (this.empForm.valid) {
-      if (this.data) {
-        console.log(this.empForm.value);
-      } else {
-        this._dialogRef.close(this.empForm.value);
-      }
+      const productData = {
+        storeId: this.id,
+        name: this.empForm.value.name,
+        description: this.empForm.value.description,
+        amount: this.empForm.value.amount,
+        temperature: this.empForm.value.temperature
+      };
+  
+        this.stockService.createProduct(productData).subscribe((response) => {
+          this._dialogRef.close(response);
+        });
     }
-  }
+  }  
 
   greaterThanToday = (d: Date | null): boolean => {
     const today = new Date();

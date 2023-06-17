@@ -28,20 +28,55 @@
 
     <button
       (click)="openAddEditEmpForm()"
-      class="bg-green-400 justify-center text-white font-bold rounded hover:bg-green-500  flex items-center gap-2 py-4 px-4"
+      class="bg-green-400 justify-center text-white font-bold rounded hover:bg-green-500 flex items-center gap-2 py-4 px-4"
     >
       CREAR PRODUCTO
     </button>
   </div>
 
-
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-0 py-4">
-    <stock-card-component></stock-card-component>
-    <stock-card-component></stock-card-component>
-    <stock-card-component></stock-card-component>
-
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-0 py-4"
+  >
+    <div *ngFor="let prod of products">
+    
+      <mat-card class="rounded-lg overflow-hidden mx-auto py-4">
+        <div class="w-20 h-20 mx-auto overflow-hidden rounded-full">
+          <img
+            mat-card-image
+            src="../../../assets/store.jpeg"
+            alt="Profile image"
+            class="object-cover w-full h-full"
+          />
+        </div>
+        <mat-card-title class="text-center text-xl py-2">{{
+          prod.name
+        }}</mat-card-title>
+        <mat-card-content class="text-center text-gray-600 break-words">
+          <p>{{ prod.description }}</p>
+          <p>Monto: {{ prod.amount }}</p>
+          <p>Temperatura: {{ prod.temperature }}</p>
+        </mat-card-content>
+        <mat-card-actions class="justify-center mt-4">
+          <div class="flex flex-col items-center gap-2 py-2">
+            <ng-container> </ng-container>
+            <ng-container>
+              <button
+                class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-2"
+                (click)="openEditForm(prod)"
+                (click)="getProductSelect(prod.id)"
+              >
+                EDITAR
+              </button>
+            </ng-container>
+            <ng-container>
+              <button class="bg-red-500 text-white px-4 py-2 rounded-lg w-full"
+              (click)="deleteProduct(prod)">
+                ELIMINAR
+              </button>
+            </ng-container>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    </div>
   </div>
-
-
 </div>
-

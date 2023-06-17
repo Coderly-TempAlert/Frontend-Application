@@ -46,6 +46,7 @@ import { ConfirmDialogComponent } from './components/confirmDialog/confirm-dialo
 import { DatePipe } from '@angular/common';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { RegisterComponent } from './modules/register/register.component';
+import { StockEditComponent } from './components/stock-edit/stock-edit.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { RegisterComponent } from './modules/register/register.component';
     StockCardComponent,
     MainComponent,
     RegisterComponent,
+    StockEditComponent
   ],
   imports: [
     BrowserModule,
