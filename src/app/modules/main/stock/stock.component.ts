@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -19,7 +18,7 @@ interface SideNavToggle {
   collapsed: boolean;
 }
 
-interface FilteredOptions{
+interface FilteredOptions {
   id: number;
   name: string;
 }
@@ -31,18 +30,16 @@ interface FilteredOptions{
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StockComponent implements OnInit{
+export class StockComponent implements OnInit {
   title = 'planning';
   isSideNavCollapsed = false;
   screenwidth = 0;
   page = 0;
   products: Array<Product> = [];
-  id!:string;
+  id!: string;
   productSelected!: Product;
 
-
-  @Input() collapsed =false;
-
+  @Input() collapsed = false;
 
   selectOptionVal: number = 0;
   selectTypeDocVal: number = 0;
@@ -52,85 +49,93 @@ export class StockComponent implements OnInit{
   maxLengthSearch: number = 15;
   filterBy: Subject<string>;
 
-  constructor(private _dialog: MatDialog, private stockService: StockService,
-    private rutaActiva:ActivatedRoute,
-    private cdRef: ChangeDetectorRef){
-      this.search = new Subject<void>();
-      this.filterBy = new Subject<string>();
-    }
-
-
-  ngOnInit(): void {
-    this.rutaActiva.params.subscribe(
-      (params: Params) => {
-        this.id = params['id'];
-      }
-    );
-     this.getProductByStore(this.id);
+  constructor(
+    private _dialog: MatDialog,
+    private stockService: StockService,
+    private rutaActiva: ActivatedRoute,
+    private cdRef: ChangeDetectorRef
+  ) {
+    this.search = new Subject<void>();
+    this.filterBy = new Subject<string>();
   }
 
-  onToggleSideNav(event: SideNavToggle): void{
+  ngOnInit(): void {
+    this.rutaActiva.params.subscribe((params: Params) => {
+      this.id = params['id'];
+    });
+    this.getProductByStore(this.id);
+  }
+
+  onToggleSideNav(event: SideNavToggle): void {
     this.screenwidth = event.screenWidth;
     this.isSideNavCollapsed = event.collapsed;
   }
 
-  getBodyClass(): string{
+  getBodyClass(): string {
     let styleClass = '';
-    if(this.collapsed && this.screenwidth > 768) {
+    if (this.collapsed && this.screenwidth > 768) {
       styleClass = 'body-trimmed';
-    }else if (this.collapsed && this.screenwidth <= 768 && this.screenwidth > 0) {
-      styleClass = 'body-md-scree'
+    } else if (
+      this.collapsed &&
+      this.screenwidth <= 768 &&
+      this.screenwidth > 0
+    ) {
+      styleClass = 'body-md-scree';
     }
     return styleClass;
   }
 
-
   openAddEditEmpForm() {
     const dialogRef = this._dialog.open(StockEmpAddEditComponent, {
-      data: { id: this.id}
+      data: { id: this.id },
     });
     dialogRef.afterClosed().subscribe({
       next: (val) => {
         if (val) {
-          console.log(val);
+          this.products.push(val);
+          this.cdRef.detectChanges();
         }
       },
     });
   }
 
-  getProductByStore(idStore: string){
+  getProductByStore(idStore: string) {
     this.products = [];
-    this.stockService.getStoreProducts(idStore).pipe(
-      catchError(err => {
-        console.error('gaa', err);
-        return throwError(err);
-      })
-    ).subscribe((response)=>{
-      for(let p of response.registers){
-        this.products.push(p.product);
-      }
-    })
+    this.stockService
+      .getStoreProducts(idStore)
+      .pipe(
+        catchError((err) => {
+          console.error('gaa', err);
+          return throwError(err);
+        })
+      )
+      .subscribe((response) => {
+        for (let p of response.registers) {
+          this.products.push(p.product);
+          this.cdRef.detectChanges();
+        }
+      });
   }
 
-  getProductSelect(idProduct: string){
+  getProductSelect(idProduct: string) {
     this.stockService.getProduct(idProduct).subscribe({
-      next: (data: Product)=>{
+      next: (data: Product) => {
         const selectedProduct = {
-          id:data.id,
-          name:data.name,
-          description:data.description,
-          amount:data.amount,
-          temperature: data.temperature
+          id: data.id,
+          name: data.name,
+          description: data.description,
+          amount: data.amount,
+          temperature: data.temperature,
         };
         this.productSelected = data;
         console.log('esta es primero:', this.productSelected);
-      }
-    })
+      },
+    });
   }
 
-  openEditForm(producto:Product) {
+  openEditForm(producto: Product) {
     const dialogRef = this._dialog.open(StockEditComponent, {
-      data: { product: producto},
+      data: { product: producto },
     });
 
     dialogRef.afterClosed().subscribe({
@@ -142,17 +147,13 @@ export class StockComponent implements OnInit{
         }
       },
     });
-  
   }
 
-
-  deleteProduct(producto:Product) {
+  deleteProduct(producto: Product) {
     let _confirm = confirm('Estas seguro de eliminar este producto?');
     if (_confirm) {
       this.stockService.deleteProduct(producto.id).subscribe({});
-      this.getProductByStore(this.id);
+      this.products = this.products.filter((p) => p.id !== producto.id);
     }
   }
-
-
 }

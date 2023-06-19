@@ -12,15 +12,15 @@
   }}</mat-card-title>
   <mat-card-content class="text-left text-gray-600 break-words">
     <div class="h-32">
-      <h3><b>Descripcion:</b></h3>
+      <h3><b>Description:</b></h3>
       <p>{{ store.description }}</p>
     </div>
     <div>
-      <h3><b>Direccion:</b></h3>
+      <h3><b>Address:</b></h3>
       <p>{{ store.address }}</p>
     </div>
     <div>
-      <h3><b>Dia de creacion:</b></h3>
+      <h3><b>Creation Date:</b></h3>
       <p>{{ store.createdDate | date:'dd/MM/yyyy' }}</p>
     </div>
   </mat-card-content>
@@ -28,7 +28,7 @@
     <div class="flex flex-col items-center gap-2 py-2">
       <ng-container>
         <button (click)="goToStock(store.id)" class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full mb-2">
-          INVENTARIO
+          INVENTORY
         </button>
       </ng-container>
       <ng-container>
@@ -36,12 +36,12 @@
           class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-2"
           (click)="openEditForm()"
         >
-          EDITAR
+          EDIT
         </button>
       </ng-container>
       <ng-container>
         <button class="bg-red-500 text-white px-4 py-2 rounded-lg w-full" (click)="deleteStore()">
-          ELIMINAR
+          DELETE
         </button>
       </ng-container>
     </div>

@@ -56,11 +56,6 @@ export class SidenavComponent implements OnInit {
   screenwidth = 0;
   navData = [
     {
-      routeLink: '',
-      icon: 'fal fa-user-circle',
-      label: 'Profile',
-    },
-    {
       routeLink: '/main/stores',
       icon: 'fal fa-store',
       label: 'Stores',
@@ -73,7 +68,7 @@ export class SidenavComponent implements OnInit {
     {
       routeLink: '/login',
       icon: 'fa-sign-out fal',
-      label: 'Log Out',
+      label: 'Logout',
     },
   ];
   @HostListener('window:resize', ['$event'])

@@ -10,8 +10,8 @@
   <mat-card-title class="text-center text-xl py-2">{{ producto.name }}</mat-card-title>
   <mat-card-content class="text-center text-gray-600 break-words">
     <p>{{ producto.description }}</p>
-    <p>Monto: {{ producto.amount }}</p>
-    <p>Temperatura: {{ producto.temperature }} </p>
+    <p>Amount: {{ producto.amount }}</p>
+    <p>Temperature: {{ producto.temperature }} </p>
   </mat-card-content>
   <mat-card-actions class="justify-center mt-4">
     <div class="flex flex-col items-center gap-2 py-2">
@@ -21,14 +21,14 @@
         <button
           class="bg-green-500 text-white px-4 py-2 rounded-lg w-full mb-2"
         >
-          EDITAR
+          EDIT
         </button>
       </ng-container>
       <ng-container>
         <button
           class="bg-red-500 text-white px-4 py-2 rounded-lg w-full"
         >
-          ELIMINAR
+          DELETE
         </button>
       </ng-container>
     </div>

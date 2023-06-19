@@ -1,42 +1,50 @@
 <div class="p-4">
+  <div mat-dialog-title>
+    <h1>Create Product</h1>
+  </div>
+  <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+      <div class="row">
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>ID</mat-label>
+          <input matInput formControlName="storeId" />
+        </mat-form-field>
+      </div>
 
-    <div mat-dialog-title>
-        <h1>Crear Producto</h1>
+      <div class="row">
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description" />
+        </mat-form-field>
+      </div>
+
+      <div class="row">
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Amount</mat-label>
+          <input matInput formControlName="amount" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" floatLabel="always">
+          <mat-label>Optimum temperature</mat-label>
+          <input matInput formControlName="temperature" />
+        </mat-form-field>
+      </div>
     </div>
-    <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
-        <div mat-dialog-content class="content">
-            <div class="row">
-                <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>ID</mat-label>
-                    <input matInput formControlName="storeId">
-                </mat-form-field>
-            </div>
-
-            <div class="row">
-                <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput formControlName="name">
-                </mat-form-field>
-                <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Descripción</mat-label>
-                    <input matInput formControlName="description">
-                </mat-form-field>
-            </div>
-
-            <div class="row">
-                <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Cantidad</mat-label>
-                    <input matInput formControlName="amount">
-                </mat-form-field>
-                <mat-form-field appearance="fill" floatLabel="always">
-                    <mat-label>Temperatura Óptima</mat-label>
-                    <input matInput formControlName="temperature">
-                </mat-form-field>
-            </div>
-        </div>
-        <div mat-dialog-actions class="action">
-            <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
-            <button mat-raised-button color="primary" type="submit">{{data ? 'Update': 'Save'}}</button>
-        </div>
-    </form>
+    <div mat-dialog-actions class="action">
+      <button mat-raised-button type="button" [mat-dialog-close]="false">
+        Cancel
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="empForm.invalid"
+      >
+        Save
+      </button>
+    </div>
+  </form>
 </div>

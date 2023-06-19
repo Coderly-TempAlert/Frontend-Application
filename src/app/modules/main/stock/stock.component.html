@@ -1,46 +1,21 @@
 <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
 <div class="body" [ngClass]="getBodyClass()">
-  <h1 class="text-xl text-gray-600">Inventario</h1>
-  <div class="grid grid-cols-1 justify-stretch sm:grid-cols-5 gap-4">
-    <mat-form-field appearance="fill">
-      <mat-label>Filtrar por</mat-label>
-      <mat-select [(ngModel)]="selectOptionVal">
-        <mat-option [value]="option.id" *ngFor="let option of tempOptions">{{
-          option.name
-        }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="flex flex-1 col-span-3" appearance="fill">
-      <mat-label>Ingresa data a buscar</mat-label>
-      <input
-        title="Search"
-        matInput
-        [(ngModel)]="this.searchTerm"
-        #filterModal
-        [maxlength]="maxLengthSearch"
-        (keyup)="this.filterBy.next(searchTerm)"
-        (keydown.enter)="this.search.next()"
-      />
-      <mat-hint align="end"
-        >{{ filterModal.value.length }}/{{ maxLengthSearch }}</mat-hint
-      >
-    </mat-form-field>
-
+  <div class="grid grid-cols-1 justify-stretch sm:grid-cols-8 gap-4">
+    <h1 class="text-xl text-gray-600 flex flex-1 col-span-7">Inventory</h1>
     <button
       (click)="openAddEditEmpForm()"
-      class="bg-green-400 justify-center text-white font-bold rounded hover:bg-green-500 flex items-center gap-2 py-4 px-4"
+      class="bg-green-400 justify-center text-white font-bold rounded hover:bg-green-500 flex items-center gap-2 py-2 px-2 col-span-1"
     >
-      CREAR PRODUCTO
+      CREATE PRODUCT
     </button>
   </div>
 
   <div
-    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 px-0 py-4"
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 2xl:grid-cols-6 gap-4 px-1 py-8"
   >
     <div *ngFor="let prod of products">
-    
-      <mat-card class="rounded-lg overflow-hidden mx-auto py-4">
-        <div class="w-20 h-20 mx-auto overflow-hidden rounded-full">
+      <mat-card class="rounded-lg overflow-hidden mx-auto py-4 h-full">
+        <div class="w-32 h-32 mx-auto overflow-hidden rounded-full">
           <img
             mat-card-image
             src="../../../assets/store.jpeg"
@@ -51,11 +26,20 @@
         <mat-card-title class="text-center text-xl py-2">{{
           prod.name
         }}</mat-card-title>
-        <mat-card-content class="text-center text-gray-600 break-words">
-          <p>{{ prod.description }}</p>
-          <p>Monto: {{ prod.amount }}</p>
-          <p>Temperatura: {{ prod.temperature }}</p>
-        </mat-card-content>
+        <div class="text-left text-gray-600 break-words p-5">
+          <div class="h-32">
+            <h3><b>Description:</b></h3>
+            <p>{{ prod.description }}</p>
+          </div>
+          <div>
+            <h3><b>Amount: </b></h3>
+            <p>{{ prod.amount }}</p>
+          </div>
+          <div>
+            <h3><b>Temperature: </b></h3>
+            <p>{{ prod.temperature }}º</p>
+          </div>
+        </div>
         <mat-card-actions class="justify-center mt-4">
           <div class="flex flex-col items-center gap-2 py-2">
             <ng-container> </ng-container>
@@ -65,13 +49,15 @@
                 (click)="openEditForm(prod)"
                 (click)="getProductSelect(prod.id)"
               >
-                EDITAR
+                EDIT
               </button>
             </ng-container>
             <ng-container>
-              <button class="bg-red-500 text-white px-4 py-2 rounded-lg w-full"
-              (click)="deleteProduct(prod)">
-                ELIMINAR
+              <button
+                class="bg-red-500 text-white px-4 py-2 rounded-lg w-full"
+                (click)="deleteProduct(prod)"
+              >
+                DELETE
               </button>
             </ng-container>
           </div>

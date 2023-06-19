@@ -1,6 +1,6 @@
 <div class="p-4">
     <div mat-dialog-title>
-      <h1>Editar Producto</h1>
+      <h1>Edit Product</h1>
     </div>
     <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
       <div mat-dialog-content class="content">
@@ -10,21 +10,21 @@
             <input matInput formControlName="id" />
           </mat-form-field>
           <mat-form-field appearance="fill" floatLabel="always">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Name</mat-label>
             <input matInput formControlName="name" />
           </mat-form-field>
         </div>
         <div class="row">
           <mat-form-field appearance="fill" floatLabel="always">
-            <mat-label>Descripcion</mat-label>
+            <mat-label>Description</mat-label>
             <textarea matInput formControlName="description"></textarea>
           </mat-form-field>
           <mat-form-field appearance="fill" floatLabel="always">
-            <mat-label>Cantidad</mat-label>
+            <mat-label>Amount</mat-label>
             <input matInput formControlName="amount" />
           </mat-form-field>
           <mat-form-field appearance="fill" floatLabel="always">
-            <mat-label>Temperatura</mat-label>
+            <mat-label>Temperature</mat-label>
             <input matInput formControlName="temperature" />
           </mat-form-field>
         </div>

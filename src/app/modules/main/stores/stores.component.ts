@@ -1,4 +1,3 @@
-import { HttpParams } from '@angular/common/http';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -39,8 +38,7 @@ export class StoresComponent implements OnInit {
   page = 0;
 
   stores: Array<Store> = [];
-
-  //! Get all stores a veces tiene problemas para la carga y no se muestra la lista de tiendas
+  
   ngOnInit(): void {
     this.getAllStores();
   }

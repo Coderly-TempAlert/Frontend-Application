@@ -42,7 +42,7 @@ export class StockEmpAddEditComponent implements OnInit {
         ),
       temperature: new FormControl<string | null>(
           {value: null, disabled: false},
-          [Validators.required, Validators.pattern('[0-9]*'), Validators.maxLength(4)]
+          [Validators.required, Validators.pattern('-?[0-9]*')]
       ),      
     });
   }

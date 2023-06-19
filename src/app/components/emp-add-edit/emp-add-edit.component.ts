@@ -70,8 +70,6 @@ export class EmpAddEditComponent implements OnInit {
         });
       } else {
 
-        console.log(this.data.store.createdDate);
-
         this.storeService
           .update(this.newStore.id, {
             name: this.empForm.value.name,
