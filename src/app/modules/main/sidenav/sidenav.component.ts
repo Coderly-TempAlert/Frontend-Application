@@ -14,6 +14,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { Router } from '@angular/router';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -70,7 +71,7 @@ export class SidenavComponent implements OnInit {
       label: 'Dashboard',
     },
     {
-      routeLink: '',
+      routeLink: '/login',
       icon: 'fa-sign-out fal',
       label: 'Log Out',
     },
@@ -86,6 +87,8 @@ export class SidenavComponent implements OnInit {
       });
     }
   }
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
     this.screenwidth = window.innerWidth;
@@ -105,5 +108,10 @@ export class SidenavComponent implements OnInit {
       collapsed: this.collapsed,
       screenWidth: this.screenwidth,
     });
+  }
+
+  logOut(): void {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }

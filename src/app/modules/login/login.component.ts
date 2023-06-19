@@ -21,17 +21,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.logInForm = this._formBuilder.group({
-      userName: ['', [Validators.required, Validators.pattern(/^[a-zA-Z ]*$/)]],
+      userName: ['', [Validators.required]],
       password: ['', [Validators.required]],
     });
-  }
-
-  login() {
-    if (this.logInForm.invalid) {
-      return;
-    }
-    this.logInForm.disable();
-    this._router.navigate(['/main/stores']);
   }
 
   onLogin() {
@@ -49,7 +41,10 @@ export class LoginComponent implements OnInit {
           }
         },
         (error) => {
-          throw error;
+          this._snackBar.open(error.error.message, 'Cerrar', {
+            duration: 3000,
+            panelClass: ['snackbar-service'],
+          });
         }
       );
     }
